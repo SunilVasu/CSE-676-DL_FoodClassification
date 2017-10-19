@@ -1,0 +1,29 @@
+Files and Folders:
+
+data:Contains the data that was used for training
+originalCaffenet: Contains the code for the original caffenet code.
+transferLearning_InceptionV4: Contains code for the transfer learning performed using the Inception model.
+transferLearning_MobileNet: Contains code for the transfer learning performed using the MobileNet model.
+dataAugmenter.py: Contains code used for data augmentation tested on images.
+simpleCNN.py: Contains code for the simple tensorflow CNN model tested.
+mainCNN.py: Contains the code for the final model that was tested for the dataset.
+
+
+Sample scripts for the transfer learning models:
+MobileNet
+python3 -m scripts.retrain \
+  --bottleneck_dir=tf_files/bottlenecks \
+  --how_many_training_steps=500 \
+  --model_dir=tf_files/models/ \
+  --summaries_dir=tf_files/training_summaries/"${ARCHITECTURE}" \
+  --output_graph=tf_files/retrained_graph.pb \
+  --output_labels=tf_files/retrained_labels.txt \
+  --architecture="${ARCHITECTURE}" \
+  --image_dir=/Drive/Workspace/PycharmProjects2/food-101-keras-master/Aditya_dataset/aug_test
+
+Inception v4
+Prediction script::
+python3 predict.py --image /Drive/Workspace/PycharmProjects2/food-101-keras-master/FINAL/InceptionV4/data/validation/CAKE/CAKE0150.png --model inceptionv3-ft.model
+
+Training scripts::
+python3 fine-tune.py --train_dir /Drive/Workspace/PycharmProjects2/food-101-keras-master/FINAL/InceptionV4/data/aug_images --val_dir /Drive/Workspace/PycharmProjects2/food-101-keras-master/FINAL/InceptionV4/data/validation  --nb_epoch 5 --batch_size 10 --output_model_file inceptionv3-ft-AugmentedData.model
